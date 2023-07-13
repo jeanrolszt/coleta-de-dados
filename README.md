@@ -51,3 +51,26 @@ pip install -r requirements.txt
 ```bash
 (pECD)$ python main.py 
 ```
+
+## Deploy
+
+gcloud auth login
+
+gcloud config set project PROJECT_ID
+
+gcloud run deploy --source .
+
+- https://cloud.google.com/run/docs/quickstarts/build-and-deploy/deploy-python-service#before-you-begin
+- https://stackoverflow.com/questions/55846611/gcloud-builds-submit-for-cloud-run
+
+gcloud run deploy cadastro-v1 --source .
+
+## Cloud SQL
+
+gcloud sql connect register-database --user=mtsousa
+
+- mysql
+
+use cadastro;
+
+select * from usuarios;
