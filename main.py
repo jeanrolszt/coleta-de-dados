@@ -1,12 +1,17 @@
 from datetime import datetime  
 from flask import Flask, flash, render_template, request, redirect
+<<<<<<< HEAD
 from flask_sqlalchemy import SQLAlchemy
+=======
+import csv
+>>>>>>> parent of 8200f46 (Adicionei conexão com o SQLite)
 import os
 
 app = Flask(__name__)
 app.debug = False
 app.config['SECRET_KEY'] = 'asdasdasdasd'
 
+<<<<<<< HEAD
 # Google Cloud SQL config
 # https://www.geeksforgeeks.org/setting-up-google-cloud-sql-with-flask/
 # https://www.youtube.com/watch?v=Z4pzWi_470s
@@ -57,6 +62,15 @@ class Usuarios(db.Model):
 
 with app.app_context():
     db.create_all()
+=======
+if not os.path.isfile(r"data.csv"):
+        with open('data.csv', 'a', encoding='UTF8', newline='') as f:
+            # create the csv writer
+            writer = csv.writer(f, delimiter=';')
+            data = ['nome completo','cpf','telefone','email','cargos','data','ip','browser','version','platform','uas']
+            # write a row to the csv file
+            writer.writerow(data)
+>>>>>>> parent of 8200f46 (Adicionei conexão com o SQLite)
 
 @app.route("/")
 def coleta():
@@ -64,6 +78,7 @@ def coleta():
 
 @app.route("/registrar", methods=['POST'])
 def registrar():
+<<<<<<< HEAD
     nome_completo = request.form['nomeCompleto'][:255]
     cpf = request.form['cpf']
     telefone = request.form['telefone']
@@ -78,6 +93,28 @@ def registrar():
     db.session.add(data)
     db.session.commit()
 
+=======
+    ip = request.remote_addr
+    browser = request.user_agent.browser
+    version = request.user_agent.version and int(request.user_agent.version.split('.')[0])
+    platform = request.user_agent.platform
+    uas = request.user_agent.string
+    timestamp = datetime.timestamp(datetime.now())
+
+    # get the offices
+    offices = ','.join(x.upper() for x in list(request.form.keys())[4:])
+
+    # convert the timestamp to a datetime object in the local timezone
+    dt_object = datetime.fromtimestamp(timestamp)
+    with open('data.csv', 'a', encoding='UTF8', newline='') as f:
+        # create the csv writer
+        writer = csv.writer(f, delimiter=';')
+        data = [request.form['nomeCompleto'],request.form['cpf'],request.form['telefone'],request.form['email'],offices,dt_object,ip, browser, version, platform, uas]
+        
+        # write a row to the csv file
+        writer.writerow(data)
+    
+>>>>>>> parent of 8200f46 (Adicionei conexão com o SQLite)
     flash('Obrigado por se registrar!')
     return redirect('/', 302)
 
