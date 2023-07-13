@@ -1,1 +1,9 @@
 __pycache__/
+pECD/
+<<<<<<< HEAD
+instance/
+=======
+.dockerignore
+docker-gcloud.md
+Dockerfile
+>>>>>>> parent of 8200f46 (Adicionei conexão com o SQLite)
