@@ -2,6 +2,11 @@
 {% block title %} Home {% endblock %}
 
 {% block content %}
+  <div class="row">
+      <div class="alert alert-danger" style="display:none" id="alertaCpf">
+          Esse CPF não foi encontrado em nossa base. Por favor, contate o suporte.
+      </div>
+  </div>
 <div class="container mt-5  align-items-center">
     <div class="row justify-content-center ">
       <div class="col-md-10">
@@ -16,11 +21,11 @@
             <form class="form" name="registrar" method="post" role="form" action="/registrar" autocomplete="off" onsubmit = "return validateForm()">
               <div class="form-group">
                 <label>NOME COMPLETO</label>
-                <input id="nome" class="form-control form-control-lg rounded-0" name="nomeCompleto" required>
+                <input id="nome" class="form-control form-control-lg rounded-0" name="nomeCompleto" required type="text">
               </div>
               <div class="form-group">
                 <label>CPF</label>
-                <input id="cpf" class="form-control form-control-lg rounded-0" maxlength="14" name="cpf" required>
+                <input id="cpf" class="form-control form-control-lg rounded-0" maxlength="14" name="cpf" required type="text">
               </div>
               <div class="form-group">
                 <label>TELEFONE</label>
@@ -30,13 +35,67 @@
                 <label>EMAIL</label>
                 <input id="email" type="email" class="form-control form-control-lg rounded-0" name="email" required>
               </div>
-              <button type="submit" class="btn btn-success btn-lg">Registrar</button>
+              <button type="submit" id="buttonReg" class="btn btn-success btn-lg">Registrar</button>
             </form>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+
+<script>
+
+
+function readBody(xmlHttp) {
+    return xmlHttp.response;
+}
+
+function httpGetAsync(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+           var serviceResponse = xmlHttp.responseText;
+
+           if (typeof serviceResponse != "undefined"){
+                console.log("entrou")
+                var jsonResponse = JSON.parse(serviceResponse);
+                var nome = jsonResponse.nome;
+                var cpfResponse = jsonResponse.cpfResponse;
+                var email = jsonResponse.email;
+                var telefone = jsonResponse.telefone;
+                if (typeof nome != "undefined") document.getElementById("nome").value = nome
+                if (typeof email != "undefined") document.getElementById("email").value = email
+                if (typeof telefone != "undefined") document.getElementById("telefone").value = telefone
+                document.getElementById( 'alertaCpf' ).style.display = 'none';
+                document.getElementById("buttonReg").disabled = false;
+           }
+
+           if (typeof nome == "undefined"){
+              document.getElementById("nome").value = ""
+              document.getElementById("email").value = ""
+              document.getElementById("telefone").value = ""
+              document.getElementById( 'alertaCpf' ).style.display = 'block';
+              document.getElementById("buttonReg").disabled = true;
+           }
+
+    }
+    xmlHttp.open("GET", theUrl, true);
+    xmlHttp.send();
+}
+
+let cpf = document.getElementById("cpf");
+
+cpf.onblur = function(){
+   console.log("blur", "saiu do input" , this);
+   httpGetAsync("http://localhost:8444/pessoa/" + cpf.value); //MUDAR PARA BASE URL
+}
+
+
+
+</script>
 
   <script>
     window.addEventListener('DOMContentLoaded', function() {
