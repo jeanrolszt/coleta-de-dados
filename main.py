@@ -26,11 +26,10 @@ def registrar():
     version = request.user_agent.version and int(request.user_agent.version.split('.')[0])
     platform = request.user_agent.platform
     uas = request.user_agent.string
-
+    cpf = re.sub('[^0-9]', '', request.form['cpf'])
     with mysql.cursor() as cur:
-        cur.execute("INSERT INTO pessoas_partido_historico (`nome`, `cpf`, `email`, `telefone`, `ip`)  values(%s,%s,%s,%s,%s)", (request.form['nomeCompleto'], request.form['cpf'], request.form['email'], request.form['telefone'], ip))
+        cur.execute("INSERT INTO pessoas_partido_historico (`nome`, `cpf`, `email`, `telefone`, `ip`)  values(%s,%s,%s,%s,%s)", (request.form['nomeCompleto'], cpf, request.form['email'], request.form['telefone'], ip))
         cur.connection.commit()
-    flash('Obrigado por se registrar')
     return render_template('horario.html')
 
 @app.route("/horario")

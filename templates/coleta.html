@@ -2,54 +2,44 @@
 {% block title %} Home {% endblock %}
 
 {% block content %}
-  <div class="row">
-      <div class="alert alert-danger" style="display:none" id="alertaCpf">
-          Esse CPF não foi encontrado em nossa base. Por favor, contate o suporte.
-      </div>
-  </div>
 <div class="container mt-5  align-items-center">
     <div class="row justify-content-center ">
-      <div class="col-md-10">
+      <div class="col-md-10" style="margin-top:-55px">
         <div class="card">
-          <div class="card-header">
-            <h1>Simulação de Votação do MDB</h1>
-            <h4 class="mb-0">Registre seus dados para poder participar da votação</h4>
+          <div class="card-header" style="background-color:#519C64;color:#DCF5E4">
+            <h4>MDB - Base Cadastral Para Votações</h4>
+            <p class="mb-0">Confirme ou atualize seus dados. Assim, na hora da votação conseguiremos te localizar mais facilmente.</p>
           </div>
           <div class="card-body">
               <div class="alert alert-danger show" style="display: none;" role="alert">
               </div>
-            <form class="form" name="registrar" method="post" role="form" action="/registrar" autocomplete="off" onsubmit = "return validateForm()">
-              <div class="form-group">
-                <label>NOME COMPLETO</label>
-                <input id="nome" class="form-control form-control-lg rounded-0" name="nomeCompleto" required type="text">
-              </div>
-              <div class="form-group">
-                <label>CPF</label>
-                <input id="cpf" class="form-control form-control-lg rounded-0" maxlength="14" name="cpf" required type="text">
-              </div>
-              <div class="form-group">
-                <label>TELEFONE</label>
-                <input id="telefone" class="form-control form-control-lg rounded-0" maxlength="14" name="telefone" required>
-              </div>
-              <div class="form-group">
-                <label>EMAIL</label>
-                <input id="email" type="email" class="form-control form-control-lg rounded-0" name="email" required>
-              </div>
+            <form class="login-form" name="registrar" method="post" role="form" action="/registrar" autocomplete="off" onsubmit = "return validateForm()">
+            <div class="login-form__logo-container">
+                <img class="login-form__logo" src="../static/img/mdbLogo.png" alt="Logo">
+            </div>
+            <div class="login-form__content">
+                <input class="login-form__input" id="cpf" type="text" maxlength="14" name="cpf" required placeholder="CPF">
+                <input class="login-form__input" type="text" name="nomeCompleto" id="nome" required placeholder="Nome">
+               <input class="login-form__input" id="telefone" type="text"  name="telefone" required placeholder="Telefone">
+               <input class="login-form__input" id="email" type="email" name="email" required placeholder="E-mail">
+                <input id="ischecked" type="checkbox"  required>
+                <label style="font-size:15px">Confirmo que esses dados são meus.</label>
 
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                  <label class="form-check-label" for="flexCheckDefault">
-                    Confirmo que esses dados são meus e estão atualizados:
-                  </label>
-              </div>
-              <button type="submit" id="buttonReg" class="btn btn-success btn-lg">Registrar</button>
-            </form>
+
+               <button class="login-form__button" style="background-color:#519C64" id="buttonReg" type="submit">Registrar</button>
+
+            </div>
+        </form>
+
+      <div class="alert alert-danger" style="display:none" id="alertaCpf">
+          Esse CPF não foi encontrado em nossa base. Por favor, contate o suporte.
+      </div>
+
           </div>
         </div>
       </div>
     </div>
   </div>
-
 
 <script>
 
@@ -122,7 +112,7 @@ cpf.onblur = function(){
         var nome = nomeInput.value;
         nome = nome.replace(/[^a-zA-Z\u00C0-\u00FF\s]/g, ''); // Remove caracteres não permitidos
         
-        nomeInput.value = nome.toUpperCase();
+        //nomeInput.value = nome.toUpperCase();
       });
 
       var telefoneInput = document.getElementById('telefone');

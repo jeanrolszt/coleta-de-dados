@@ -23,4 +23,6 @@ CREATE TABLE `pessoas_partido_historico` (
 ) ENGINE=InnoDB;
 
 
-INSERT INTO `coleta`.`pessoas_partido` (`nome`, `cpf`, `email`, `data_insercao`, `data_ultima_atualizacao`, `telefone`) VALUES ('JosefinoTESTE', '04411786675', 'josefino@josefino', '2023-07-16 15:49:37', '2023-07-16 15:49:37', '(31)31313-3131');
+INSERT INTO `coleta`.`pessoas_partido` (`nome`, `cpf`, `email`, `data_insercao`, `data_ultima_atualizacao`, `telefone`) VALUES ('Josefino da Silva Andrade', '04411786675', 'josefino@gmail.com', '2023-07-16 15:49:37', '2023-07-16 15:49:37', '(31)31313-3131');
+INSERT INTO `coleta`.`pessoas_partido` (`nome`, `cpf`, `email`, `data_insercao`, `data_ultima_atualizacao`, `telefone`) VALUES ('Luciene Alves', '28973666367', 'luci.alves@hotmail.com', '2023-07-16 15:49:37', '2023-07-16 15:49:37', '(61)99999-3021');
+INSERT INTO `coleta`.`pessoas_partido` (`nome`, `cpf`, `email`, `data_insercao`, `data_ultima_atualizacao`, `telefone`) VALUES ('Kayke Andrade', '45808735369', 'kaka@mdb.com.br', '2023-07-16 15:49:37', '2023-07-16 15:49:37', '(61)98735-8888');
