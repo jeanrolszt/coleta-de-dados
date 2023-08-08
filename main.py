@@ -6,12 +6,12 @@ from flask import Flask
 import re
 
 
-app = Flask(__name__)
 
+app = Flask(__name__)
 mysql = pymysql.connect(host="localhost", port=3377, user="root", password="r00t", database="coleta")
 
 
-app = Flask(__name__)
+
 app.debug = True
 app.config['SECRET_KEY'] = 'minhachavesecretaetop'
 
@@ -65,4 +65,4 @@ def getPessoaByCpf(cpf):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True, port=8444)
+    app.run(host=("0.0.0.0"), port=8081)
